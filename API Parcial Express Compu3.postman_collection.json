@@ -1,0 +1,290 @@
+{
+    "info": {
+        "_postman_id": "49a2a84d-6a43-49ad-97ba-cbf7d3ca99d0",
+        "name": "API Parcial Express Compu3",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "12699219"
+    },
+    "item": [
+        {
+            "name": "Process",
+            "item": [
+                {
+                    "name": "Create Process",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Proceso de ejemplo\",\n  \"description\": \"Descripción del proceso\",\n  \"state\": \"DRAFT\",\n  \"targetTemperature\": 37.5,\n  \"targetPH\": 7.0,\n  \"maxDurationHours\": 24\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/process",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "process"
+                            ]
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "// Guarda el ID del proceso creado en una variable de colección",
+                                    "const data = pm.response.json();",
+                                    "pm.collectionVariables.set('processId', data._id || data.id);"
+                                ]
+                            }
+                        }
+                    ],
+                    "response": []
+                },
+                {
+                    "name": "Get All Processes",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/process",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "process"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Process by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/process/{{processId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "process",
+                                "{{processId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Process by ID",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Proceso actualizado\",\n  \"description\": \"Descripción actualizada\",\n  \"state\": \"ACTIVE\",\n  \"targetTemperature\": 38.0,\n  \"targetPH\": 6.8,\n  \"maxDurationHours\": 48\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/process/{{processId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "process",
+                                "{{processId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Process by ID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/process/{{processId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "process",
+                                "{{processId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Execution",
+            "item": [
+                {
+                    "name": "Create Execution",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"operatorUsername\": \"usuario1\",\n  \"status\": \"running\",\n  \"notes\": \"Inicio de ejecución\",\n  \"measuredPH\": 7.2,\n  \"measuredTemperature\": 36.5,\n  \"processId\": \"{{processId}}\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/execution",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "execution"
+                            ]
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "// Guarda el ID de la ejecución creada en una variable de colección",
+                                    "const data = pm.response.json();",
+                                    "pm.collectionVariables.set('executionId', data._id || data.id);"
+                                ]
+                            }
+                        }
+                    ],
+                    "response": []
+                },
+                {
+                    "name": "Get Executions by Process ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/execution/process/{{processId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "execution",
+                                "process",
+                                "{{processId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Execution by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/execution/{{executionId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "execution",
+                                "{{executionId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Execution by ID",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"stopped\",\n  \"endDate\": \"2025-09-08T20:07:04.523Z\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/execution/{{executionId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "execution",
+                                "{{executionId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Execution by ID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/api/execution/{{executionId}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "execution",
+                                "{{executionId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
